@@ -1,18 +1,20 @@
 <!DOCTYPE html>
 <html>
-    <body>
-        <span>Totla clicks: 0</span>
-        <button id="btn">Click me</button>
-    </body>
-    <script>
-        let counter = 0;
-        const button = document.getElementById('btn'); //btn가져오기
-        const span = document.querySelector('span');
-        function handleClick() {
-            counter = counter + 1;
-            span.innerText= `Total clicks: ${counter}`
-        }
-        button.addEventListener("click", handleClick); //event 감지
+
+<body>
+    <span>Totla clicks: 0</span>
+    <button id="btn">Click me</button>
+</body>
+<script>
+    let counter = 0;
+    const button = document.getElementById('btn'); //btn가져오기
+    const span = document.querySelector('span');
+    function handleClick() {
+        counter = counter + 1;
+        span.innerText = `Total clicks: ${counter}`
+    }
+    button.addEventListener("click", handleClick); //event 감지
         //=> 좋지않음
-    </script>
-</html>   
+</script>
+
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+    <div id="root"></div>
+</body>
+<!-- import react, react dom -->
+<script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+<!-- babel -->
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+
+<script type="text/babel">
+    const root = document.getElementById('root');//root 가져오기
+    function Title() {
+        return (
+            <h3 id="title" function={() => console.log("mouse enter")}>
+                hello i'm a title
+            </h3>
+        );
+    }
+    const Button = () => (
+        <button
+            style={{
+                backgroundColor: "tomato",
+            }}
+            onClick={() => console.log("im clicked")}
+        >
+            Click me
+        </button>
+    );
+    const Container = () => (
+        <div>
+            <Title /> <Button /> <Button /> <Button /> <Button />
+        </div>);
+
+    ReactDOM.render(<Container />, root) // (root안에 container를 render하고 있음.)
+</script>
+
+</html>

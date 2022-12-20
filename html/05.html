@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+    <div id="root"></div>
+</body>
+<!-- import react, react dom -->
+<script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+<!-- babel -->
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+<!-- rerendering 보다 더 좋은 방법  -->
+<!-- React.js어플 내에서 데이트를 보관하고 자동으로 리렌더링을 일으킬 수 있는 최고의 방법 -->
+<script type="text/babel">
+    const root = document.getElementById('root');//root 가져오기
+    function App() {
+        const [counter, modifier] = React.useState(0);
+        return (
+            <div>
+                <h3>Total clicks: {counter}</h3>
+                <button>Click me</button>
+            </div>
+        );
+    }
+
+
+    ReactDOM.render(<App />, root);
+</script>
+
+</html>
