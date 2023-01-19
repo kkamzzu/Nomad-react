@@ -290,3 +290,175 @@ ReactDOM.render(<App />, root); //rerender
 
    // setCounter(counter +1); 와 동일하지만 위에것이 더 안전함.
    ```
+
+   ## `Input and state ` 
+   //unit conversion(단위변환)
+
+   - 분을 시간단위로 바꾸기
+
+   ```js
+ <label for="minutes">Minutes</label> 
+```
+
+
+- class(x) => className
+- for(x) => htmlFor
+
+- JSX에서는 다르게 표현해줘야 함.
+
+```js
+<script src="https://unpkg.react-dom@17.0.2/umd/react-production.min.js"> 을 쓰기 때문에 에러가 뜨진 않음. 
+```
+ 
+
+### minutes에 필요한 state만들기 
+- React Js에서는 input은 'uncontrolled' (input의 value는 우리가 통제할 수 없다.)
+    
+```js
+const [minutes, setMinutes] = React.useState()
+
+<input
+        value={minutes}
+        id="minutes" placeholder="Minutetype="number" />
+```      
+             
+```js
+const [minutes, setMinutes] = React.useState();
+```
+- first array item is value.
+- 두 번째는 value를 수정하고  component를 새로고침 할 때 쓰는 함수임.
+
+
+```js
+onChange={onChange} 
+```
+- 이제 onChange라는 event를 리스닝 함.
+- input에 변화가 생기면, onChange 함수를 실행해줄 것.
+
+```js
+const [minutes, setMinutes] = React.useState();
+const onChange = (event) => {
+        setMinutes(event.target.value);
+        };
+value={minutes} //어디서든 input의 value를 수정해줄 수 있음.
+
+<h4>You want to convert {minutes} </h4>    
+```
+- 우리가 입력한 input의 value를 바탕으로 component를 업데이트해주고 있음.    
+
+## `recap`
+
+```js
+const [minutes, setMinutes] = React.useState(0);
+// 초기값은 0
+//  setState의 결과는 array. [data, function]
+```
+```js
+value={minutes}
+// input의 value를 state로 연결. 매우 유용함 어디서든 input의 value를 수정해줄 수 있기 떄문.
+
+onChange={onChange} 
+// onChange함수는 데이터를 업데이트 해주는 역할을 함.(input에서 리스닝 하는 데이터)
+// 보다시피 input은 스스로 업데이트를 함.
+
+// change이벤트가 일어났을 때, 즉 사용자가 input에 뭔가를 써넣을 때 onChange함수가 실행됨.
+// event.target.value를 얻게 되는데 바로 input vaule임.
+// input의 value를 연결시켜주는 이유는 input값을 외부에서도 수정해주기 위함.
+```
+```js
+ onChange={onChange} 
+//가 사라진다면 input에 작성이 안됨. 
+// 이유는 input의 value가 state이고, 이 state의  default값이 0이기 때문임. (useState(0);)
+```
+
+- 시간을 분단위로 설정하기
+```js
+<label htmlFor="hours">Hours</label>
+       <input 
+       value={minutes /60}
+       id="hours" placeholder="Hours" type="number" />
+    //이 state를 60으로 나눠서 보여주는 것.
+    // hours vaule만 리렌더링 됨
+    // onCHange event가 없기 때문에 작성이 안됨. 
+```          
+
+```js
+value={Math.round(minutes /60)} //이렇게도 가능(반올림)
+``` 
+- disabled 속성을 쓰면 작성이 안됨.
+
+### `flip function` 
+- 반대로 변경시켜 줌.
+- 새로운 state가 필요함.
+```js
+const [flippd, setflipped] = React.useState(false);
+```
+```js
+<button onClick={onFlip}>Flipped</button>
+```
+- onFlip효과를 가진 버튼을 누르면 이 filpped값을 반전시키는 것. 
+- 만약 flipped이 ture상태라면, false를 반환하는 것.
+```js
+const onFlip = () => setFlipped(!flippd);
+//better
+const onFlip = () => setFlipped((current) => !current);
+```
+
+```js
+disabled={flipped === true}  
+disabled={flipped} //same
+
+ disabled={flipped === false}
+ disabled={! flipped} //same 
+ ```
+
+ - hours input엔 아직 작성이 안됨. onChange를 넣어도 완벽히 안됨.(input에 뭘 써놓아도 (Math.round(minutes /60))이렇게 계산)
+
+ - 삼항연산자 이용
+ ```js
+    value={filpped ? minutes : Math.round(minutes /60)}
+    //만약 filpped상태가 아니라면 변환된 값을 보여줘
+ ``` 
+
+
+### `Final Parctice and Recap` 
+
+```js
+function MinutesToHours() { ....}
+
+    function App() {
+        return (
+            <div>
+                <h1>Super Converter</h1>
+                {/* 분할정복(divide and conquer) */}
+                <MinutesToHours />  
+            </div>
+        );
+    }
+    const root = document.getElementById('root');
+    ReactDOM.render(<App />, root);
+</script>
+```
+- select
+
+```js
+ function App() {
+        const [index, setIndex] = React.useState(0);
+        const onSelect = (event) => {
+          setIndex(event.target.value);
+        }
+        return (
+            <div>
+                <h1>Super Converter</h1>
+                <select value={index} onChange={onSelect}>
+                  <option value ="0"> Minutes & Hours </option>
+                  <option value ="1"> Km & Miles </option>
+                  </select>
+            </div>
+        );
+    }
+    const root = document.getElementById('root');
+    ReactDOM.render(<App />, root);
+  ```
+
+    - state를 변화시킬때 모든게 Rerender.
