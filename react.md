@@ -462,3 +462,117 @@ function MinutesToHours() { ....}
   ```
 
     - state를 변화시킬때 모든게 Rerender.
+
+
+  ### `Props` 
+
+  - props = 일종의 방식. 부모 컴포넌트로부터 자식 컴포넌트에 데이터를 보낼 수 있게 해주는 방법.
+  - MinutesToHours, KmToMiles = 자식 컴포넌트 (이 두 컴포넌트는 독립적임)
+  - component 는 단지 function일 뿐이야.
+
+  - 함수형 컴포넌트
+  ```js
+    function ConfirnBtn(){
+    return <button>Confirm</button>
+  }
+  ```
+  - JSX의 내부
+```js
+ <div>
+            <SaveBtn />
+            <ConfirnBtn />
+            </div>;
+```            
+
+
+```js
+function SaveBtn() {
+    return
+    <button style={{
+      backgroundColor: "tomato",
+      color: "white",
+      padding: "10px 20px",
+      borderRadius: 10,
+      border: 0
+    }}
+    >
+      Save Changes
+    </button>
+  }
+  function ConfirnBtn() {
+    return <button style={{
+      backgroundColor: "tomato",
+      color: "white",
+      padding: "10px 20px",
+      borderRadius: 10,
+      border: 0
+    }}>Confirm</button>
+  }
+  function App() {
+    return (
+      <div>
+        <SaveBtn />
+        <ConfirnBtn />
+      </div>
+    )
+  }
+  ```
+  - 이렇게 하나씩 복붙하는건 좋지않은방법 
+
+  ```js
+   function Btn(props) {
+    return (
+      <button style={{
+        backgroundColor: "tomato",
+        color: "white",
+        padding: "10px 20px",
+        borderRadius: 10,
+        border: 0,
+      }}
+      >
+        {props.text}
+      </button>
+    );
+  }
+
+  function App() {
+    return (
+      <div>
+        <Btn  text="Save Changes" />
+        <Btn  text="Continue" />
+      </div>
+    );
+  };
+  ```
+  - 대신 props는 오브젝트이기 때문에 우린 "{}"중괄호를 연다
+
+  ```js
+   function Btn({text}) {
+    return (
+      <button style={{
+        backgroundColor: "tomato",
+        color: "white",
+        padding: "10px 20px",
+        borderRadius: 10,
+        border: 0,
+      }}
+      >
+        {text}
+      </button>
+    );
+```
+- 두번째 인자로 big={}넣을 수 있다
+- console창 -> Save Changes true
+              Continue false
+```js
+  function App() {
+    return (
+      <div>
+        <Btn  text="Save Changes" big={true}/>
+        <Btn  text="Continue" big={false}/>
+      </div>
+    );
+  };
+```
+
+- fontSize: big ? 18 : 1 (폰트사이즈가 빅이면 18 아니면 1)
