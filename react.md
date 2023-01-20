@@ -753,3 +753,36 @@ function App() {
 ```
 
 ### 만약 부모가 어떤 state라도 변경이 있다면, 모든 자식들은 다시 그려지게 됨. (이게 추후에 어플리케이션이 느려지는 원인이 될 수 있음.) 그렇기 때문에 ReactJS에게 이 props가 변경되지 않는 다면 다시 그리지 않아도 된다고 말해주는 것 -> memo()
+
+### `Prop Types`
+
+- 문제는 컴포넌트에 매우 많은 props를 가질 떄 생김.
+- React는 우리가 text에 무엇을 받고싶어하는지 모름. (우리는 text가 string이 되길 원하고, fontSize는 number가 되길 원함.) -> Prop Types라는 패키지가 있음.
+- Prop Type은 어떤 타입의 Prop을 받고 있는지를 체크해줌.
+
+```js
+// 추가해주기
+<script src="https://unpkg.com/prop-types@15.7.2/prop-types.js"></script>;
+
+Btn.propTypes = {
+  text: PropTypes.string,
+  fontSize: PropTypes.number,
+};
+```
+
+- ui에서는 에러를 보이지 않지만 콘솔창에서 말해줌.
+- Prop Types: 다양한 테스트로 확인해볼 수 있음.
+
+```js
+// isRequired
+Btn.propTypes = {
+  text: PropTypes.string.isRequired,
+  fontSize: PropTypes.number.isRequired,
+};
+```
+
+### 틀렸을 떄 콘솔창
+
+```js
+Warning: Failed prop type: Invalid prop `fontSize` of type `string` supplied to `Btn`, expected `number`.
+```
